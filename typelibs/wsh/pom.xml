@@ -8,7 +8,7 @@
     <artifactId>typelibs</artifactId>
     <version>1</version>
   </parent>
-  <artifactId>wmi</artifactId>
+  <artifactId>wsh</artifactId>
   <version>1.0-SNAPSHOT</version>
   <name>Windows Script Host Object Model typelib for com4j</name>
 
