@@ -126,7 +126,6 @@ final class Wrapper implements InvocationHandler, Com4jObject {
      * Returns the wrapped interface pointer as an integer
      * @return The wrapped interface pointer.
      */
-    @Override
     public int getPtr() {
         return (int)ptr;
     }
@@ -135,8 +134,7 @@ final class Wrapper implements InvocationHandler, Com4jObject {
         return ptr;
     }
 
-    @Override
-    public ComThread getComThread(){
+    public ComThread getComThread() {
       return thread;
     }
 
@@ -287,7 +285,6 @@ final class Wrapper implements InvocationHandler, Com4jObject {
         }.execute();
     }
 
-    @Override
     public void setName(String name){
         this.name = name;
     }
