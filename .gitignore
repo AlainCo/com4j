@@ -10,3 +10,5 @@
 *.tli
 vc90.idb
 vc90.pdb
+/.settings/
+/.project
