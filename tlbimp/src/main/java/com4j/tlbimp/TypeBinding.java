@@ -156,18 +156,14 @@ final class TypeBinding {
 			if (name.equals("GUID*")) {
 				return new TypeBinding("GUID", NativeType.GUID, true);
 			}
-			
-			
-//			if ("_tagpropertykey*".equals(name) || "tag_inner_PROPVARIANT*".equals(name) || "tagSTATSTG*".equals(name) || "tagRemSNB*".equals(name) || "tagTYPEATTR*".equals(name)
-//					|| "tagFUNCDESC*".equals(name) || "tagVARDESC*".equals(name) || "tagTLIBATTR*".equals(name)) {
-//				return new TypeBinding(long.class, NativeType.PVOID, true);
-//			}
+
 			if ("byte*".equals(name) ) {
-				return new TypeBinding(Buffer.class, NativeType.PVOID, true);
+				return new TypeBinding(Buffer.class, NativeType.PVOID, true);//probably a byte buffer
 			} 
 			if ("_tagpropertykey*".equals(name) || "tag_inner_PROPVARIANT*".equals(name) || "tagSTATSTG*".equals(name) || "tagRemSNB*".equals(name) || "tagTYPEATTR*".equals(name)
 					|| "tagFUNCDESC*".equals(name) || "tagVARDESC*".equals(name) || "tagTLIBATTR*".equals(name)) {
-				return new TypeBinding(long.class, NativeType.PVOID, true);
+				return new TypeBinding(long.class, NativeType.PVOID, true);//struct passed by reference
+				// TODO map to a java class
 			}
 			// otherwise use a holder
 			TypeBinding b = bind(g, comp, null);
@@ -214,16 +210,19 @@ final class TypeBinding {
 		}
 		
 		if ("_LARGE_INTEGER".equals(name) || "_ULARGE_INTEGER".equals(name) || "_FILETIME".equals(name)) {
-			return new TypeBinding(Buffer.class, NativeType.Int64, true);
+			//return new TypeBinding(Buffer.class, NativeType.Int64, true);
+			return new TypeBinding(long.class, NativeType.PVOID, true); // pointer to struct containing 64bits in 2 32bits halves. only as return
+			// TODO map to a really 64bit long type
 		}
 		
 		if("LPWSTR*".equals(name)) {
-			return new TypeBinding(String.class, NativeType.Unicode, true).createByRef();
+			return new TypeBinding(String.class, NativeType.Unicode, true).createByRef();// FIXME beware, maybe it is an array of string, not a holder
 		}
 		
 		if ("_tagpropertykey".equals(name) || "tag_inner_PROPVARIANT".equals(name) || "tagSTATSTG".equals(name) || "tagRemSNB".equals(name) || "tagTYPEATTR".equals(name)
 				|| "tagFUNCDESC".equals(name) || "tagVARDESC".equals(name) || "tagTLIBATTR".equals(name)) {
-			return new TypeBinding(long.class, NativeType.PVOID, true);
+			return new TypeBinding(long.class, NativeType.PVOID, true);// pointer to struct (used only as return without the '*'
+			// TODO map each struc to a java type
 		}
 		
 
